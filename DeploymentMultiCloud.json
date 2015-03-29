@@ -1,0 +1,140 @@
+{
+  "cloudProviders": [
+    {
+      "id": "amazon", 
+      "type": "IaaS"
+    },
+    {
+      "id": "azure", 
+      "type": "IaaS"
+    }
+  ], 
+  "internalComponents": [
+    {
+      "id": "mic1", 
+      "providedMethods": [
+        "mic1-register", 
+        "mic1-answerQuestions", 
+        "mic1-saveAnswers"
+      ], 
+      "requiredComponents": [
+        "frontend1"
+      ], 
+      "type": "Mic"
+    },
+    {
+      "id": "mic2", 
+      "providedMethods": [
+        "mic2-register", 
+        "mic2-answerQuestions", 
+        "mic2-saveAnswers"
+      ], 
+      "requiredComponents": [
+        "frontend2"
+      ], 
+      "type": "Mic"
+    }
+  ], 
+  "methods": [
+    {
+      "id": "mic1-answerQuestions", 
+      "type": "answerQuestions"
+    }, 
+    {
+      "id": "mic1-saveAnswers", 
+      "type": "saveAnswers"
+    }, 
+    {
+      "id": "mic1-register", 
+      "type": "register"
+    },
+    {
+      "id": "mic2-answerQuestions", 
+      "type": "answerQuestions"
+    }, 
+    {
+      "id": "mic2-saveAnswers", 
+      "type": "saveAnswers"
+    }, 
+    {
+      "id": "mic2-register", 
+      "type": "register"
+    }
+  ], 
+  "vMs": [
+      {
+      "cloudProvider": "amazon", 
+      "id": "testbed1Gloadbalancer1", 
+      "numberOfCPUs": 1, 
+      "type": "GlobalLoadBalancer"
+    },
+  {
+      "cloudProvider": "amazon", 
+      "id": "testbed1Gloadbalancer2", 
+      "numberOfCPUs": 1, 
+      "type": "GlobalLoadBalancer"
+    },
+    {
+      "cloudProvider": "amazon", 
+      "id": "testbed1ec2loadbalancer1", 
+      "numberOfCPUs": 1, 
+      "type": "LocalLoadBalancer"
+    },
+	{
+      "cloudProvider": "amazon", 
+      "id": "testbed1ec2loadbalancer2", 
+      "numberOfCPUs": 1, 
+      "type": "LocalLoadBalancer"
+    },
+	{
+      "cloudProvider": "amazon", 
+      "id": "ec2backend1", 
+      "numberOfCPUs": 1, 
+      "type": "Backend"
+    }
+	,
+	{
+      "cloudProvider": "amazon", 
+      "id": "ec2backend2", 
+      "numberOfCPUs": 1, 
+      "type": "Backend"
+    },
+	{
+      "cloudProvider": "amazon", 
+      "id": "ec2backend3",
+      "numberOfCPUs": 2, 
+      "type": "Backend"
+    },
+    {
+      "cloudProvider": "azure", 
+      "id": "testbed1azureloadbalancer1", 
+      "numberOfCPUs": 1, 
+      "type": "LocalLoadBalancer"
+    },
+  {
+      "cloudProvider": "azure", 
+      "id": "testbed1azureloadbalancer2", 
+      "numberOfCPUs": 1, 
+      "type": "LocalLoadBalancer"
+    },
+    {
+      "cloudProvider": "azure", 
+      "id": "azurebackend1", 
+      "numberOfCPUs": 1, 
+      "type": "Backend"
+    }
+  ,
+  {
+      "cloudProvider": "azure", 
+      "id": "azurebackend2", 
+      "numberOfCPUs": 1, 
+      "type": "Backend"
+    },
+  {
+      "cloudProvider": "azure", 
+      "id": "azurebackend3",
+      "numberOfCPUs": 2, 
+      "type": "Backend"
+    }
+  ]
+}

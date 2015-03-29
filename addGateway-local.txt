@@ -1,0 +1,19 @@
+sudo rm /var/log/haproxy.logsudo service rsyslog restart
+screenpython pyprox.py local-loadbalancer-x-cloud-y-private-ip 5000 db
+
+curl -H "Content-Type: application/json" -X PUT -d '{   "gateway": "gateHTTP",   "protocol": "http",   "endpoints":     {       "address1": "*:8080",       "address2": "*:8443 ssl crt /home/ubuntu/haproxy.pem"    },  "enable": "True",  "defaultBack":"backend_gold"}'  http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/gateways/gateHTTP
+
+
+curl -H "Content-Type: application/json" -X PUT -d '{   "enabled": true,   "targets": {    "ofbiz1": "ofbiz1-ip:8080",     "ofbiz2": "ofbiz2-ip:8080", "ofbiz3":"ofbiz3-ip:8080"  }}'  http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/pools/backend_gold
+
+sudo rm /var/log/haproxy.log
+sudo service rsyslog restart
+
+curl -H "Content-Type: application/json" -X PUT -d '{	"enabled": 1, "address":"ofbiz1-ip:8080", "weight": 2} ' http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/pools/backend_gold/targets/ofbiz1
+
+curl -H "Content-Type: application/json" -X PUT -d '{   "enabled": 1, "address":"ofbiz2-ip:8080", "weight": 2} ' http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/pools/backend_gold/targets/ofbiz2
+
+curl -H "Content-Type: application/json" -X PUT -d '{   "enabled": 1, "address":"ofbiz3-ip:8080", "weight": 5} ' http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/pools/backend_gold/targets/ofbiz3
+
+curl -X POST http://local-loadbalancer-x-cloud-y-private-ip:5000/v1/controller/commit
+java -jar data-collector-1.3-SNAPSHOT.jar kb
